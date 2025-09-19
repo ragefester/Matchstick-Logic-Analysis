@@ -191,7 +191,3 @@ This project wasn't built in a day. It was a journey of learning, experimenting,
 ## Contributing
 
 This project is a personal learning journey, but contributions and suggestions are always welcome! Feel free to open an issue or submit a pull request.
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
