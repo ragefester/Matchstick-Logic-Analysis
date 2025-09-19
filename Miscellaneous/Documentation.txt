@@ -1,0 +1,369 @@
+###########################################
+Original running document I had while doing this project
+###########################################
+
+Problem Identification: 
+Code the counting game, sim_to_matchsticks
+
+Scope Identification: 
+Just a small scale project for myself
+
+Technical Implementation: 
+
+Milestones:
+V1 -> Code game for 2 players
+V2 -> Code game for 2 computers
+V3 -> Code game for 1 human, 1 computer
+V4 -> 2 computers but make it iterate
+V5 -> Use V4, compile/display the data
+V6 -> Make parametres of the game customisable, Adapt computer play-style accordingly
+V7 -> Make the computer optimal when parametres are random
+V8 -> Using given data, make predictions
+V9 -> Implement an AI to play against, Train the AI to be optimal
+V10 -> Finish to V8 properly
+
+Problem Solving and Adaptability: In Vs
+
+Testing: In Vs
+I made sure each stage V ran error free before moving on
+
+Reflection: In Vs and At end
+
+V1.
+
+The inspiration came from homework assigned from Barry Ryan
+I started by writing out an overview of the problem at hand
+I wrote out the rules first and then I wrote out my plan
+From my plan I wrote out function names I might need
+These included a function to ask for an input, to execute the move, and to check for a winner
+I put my driver code at the end in a main function
+I started making functions to do individual tasks
+
+Problems + Solutions:
+1. My naming convention was all over the shop.
+I was getting mixed up between the variables assigned with the functions and the variables being passed as arguments
+To fix this I made sure that no variables in functions matched those in my driver code
+
+2. I had a problem when the user inputted a number that was not 1,2,3 or another value that was not an int
+To fix this I immediately put in a try except clause
+I used recursion on the except clause to call the function again and ask for an input
+This didn't work out for me so I decided to use a while loop instead
+
+Conclusion:
+The code is messy and I hope to clean it up
+Some of the variable names used are sketchy to say the least
+Look as it is V1 I'm happy it works
+
+V2.
+
+As V1 was coded for 2 people, V2 was coded for 2 computers
+I imported a random module to make the decision for the computers
+I copied over mainly the same code as V1 except I had to change ask_input()
+I decided to make 2 separate functions for each Cpu(Even though it is really the same code)
+This may come in handy later and it adds visibility.
+I made the ask_input() function return these functions
+
+Problems + Solutions:
+There wasn't really any problems as it was mainly a copy paste job from V1.
+
+Conclusion:
+This is a very primitive change. I will build upon this later.
+
+V3.
+
+Right from the start I realised that I had two functions kind of doing the same thing. 
+I combined them.
+I also realised that my comments were shocking in the firs 2 Vs.
+I decided to explain what each function was doing
+
+I had to add a function to handle the human move.
+I took the code from V1
+I had to rejig the code for the computer from V2
+I generally cleaned things up
+
+Problems + Solutions:
+The only problem was self inflicted.
+While trying to tidy up my code I changed my win condition to return True always not thinking properly
+I was surprised to find that the CPU won all the time
+I went back and changed it to what I had it in V2
+
+Conclusion:
+This really taught me the importance of well-documented clean code
+Also it taught me to not overlook and try to take shortcuts
+These will always come back to bite you in the end
+
+V4. 
+
+This one goes back to the V2 model but now I can decide how many times I want them to play
+Writing before I've even started coding, I'm going to run into a lot of problems with my history functions
+
+Straight away I slightly changed all the code from V3 to make it 2 computer friendly like V2.
+I used a for loop for the iterations and asked the user to input the number of iterations
+
+Problems + Solutions:
+1. The list counting all the moves gets really messy when the iterations pile up
+I changed some more function variable names and generally cleaned up the code
+The added visibility helped me weed out these errors
+
+2. I realised I need a way of using the iterations to my advantage
+It isn't any use just letting a Cpu play against itself 10 times or whatever
+I need to count each iteration, divide the list into subsections, count how many times each person won.
+I added a variable to count what iteration we were on
+I then added another list to intake all moves played by each player over all games
+I then split this up into two separate lists for each player
+
+3. Counting the no. of wins threw back so many errors
+I had assigned 2 functions just to count, but for some reason when 5 iterations was called, they couldn't count to five between them
+I decided to scrap this system and just append to a list 'p1' or 'p2' based on who won
+
+Conclusion:
+All these variable names and functions are starting to pile up
+I'll need to make my code more legible as the Vs go up
+I'm happy this works though all I'll be using this as we go on.
+
+I also realised that my cmd didn't recognise pip
+This meant I couldn't install packages.
+To fix this I changed my python version from Python 3.8 to 3.11
+I could have gone about changing environment paths and finding pip in my folder
+I have also tried running python as a virtual environment
+I felt it was easier to get a newer version of python as pip comes pre installed
+This was crucial to carry on with the project
+
+V5./V5.1
+
+The plan here is to take the data gathering started in V4 and save it externally
+I will then pull this data and graph it to visualise what's going on
+
+One of the challenges I faced wasn't even code
+I had to figure out what data was useful
+I made pl1 always go first and recorded wins
+But I wasn't sure what other data to keep
+I eventually decided to store wins and moves by each player 
+I used 2 separate csv files
+I then made a copy of the original V5
+In the other one I streamlined the code so it would run faster, I shortened it down from 200
+
+Problems + Solutions: 
+1. Chrome is really bad at supporting plotly on my laptop
+To get around this issue I installed firefox and set it as my default browser on my computer as well as on vscode
+Just setting it as default on vscode didn't seem to work
+2. I decided to stream line the code to make it runs faster
+Because my code was quite messy, I made a few errors shortening it down
+This meant I had to retrace my steps sometimes to ensure that my code worked
+
+Findings:
+From now on it is important for me to log Findings
+When I ran the simulation with 100000 iterations, it seems to slightly favour the player that goes first on random chance
+100000: 50.4% to 49.6%
+200000: 50.4% to 49.6%
+1,000,000: 50.5% to 49.5%
+Can safely say that it ever so slightly favours Player2
+I think this is a mistake from the start
+
+Conclusion:
+This part took longer than it should have
+Now my code can pit 2 computers up against each other and graph the winner based on their frequency of winning
+This will be the basis for compiling data going forward.
+
+V6.
+
+The game limit was always set at 15
+I want to change this so the user can choose
+I also want to change the options for the computer based on an input
+Straight away I found a useless function in my streamline V5 code
+
+Problems + Solutions:
+No real problems for this stage.
+I caught that I added a arg to the CPU move function before it gave me an error
+
+Findings:
+I set the win condition to 100, available moves to 10, and iters to 10,000: It gave a 50.2% to player1
+I set the win condition to 10, available moves to 3, and iters to 10,000: It gave a 50% (5004 games to player1)
+
+Conclusion:
+This was an easy stage
+I copied most of the code from V5 and commented it out again fresh 
+The code is much cleaner than before and every step is clearer also
+
+V7.
+
+The hard part here is figuring out the optimal strategy
+Roughwork our turn (1,2,3), number is len list left:
+1L, 2W, 3W, 4W, 5L, 6W, 7W, 8W, 9L
+
+our turn (1,2)
+1L, 2W, 3W, 4L, 5W, 6W, 7L
+
+What we've established from the above logic is that we win if we can always put the opponent on a losing number
+This losing number is always 1, then 2 + numbers_available, and every numbers_available+1 added above that
+This means that for(1,2,3) 1,5,9,13,17,21... lose if it is your go
+optimal play always puts the opponent on a losing number
+
+Findings:
+1. Ran traditional game (1,2,3), win 15, 100,000 sims, 100% success rate for optimised
+This was because it was using minus numbers, (which it obviously can't)
+
+Made sure it could only give back a number with in the range
+1. (1,2,3), 15, 1,000: 98.9%
+2. (1,2,3), 15, 100,000: 98.7%
+3. (1,2,3), 100, 10,000: 100%
+4. (1,2,3), 15, 1,000,000: 98.8%
+
+In sim 4. we lost 12,199 times
+This might seem not optimal but it is expected.
+For random to win it has to put us on a losing number 4 times (13,9,5,1)
+It has a 1/3 chance to do this each try 
+The chance of it doing this is 1/(3^4) or 1/81 or #FIX 1.23456789%
+1/81 * 1,000,000 = 12,346 (rounded to whole number)
+This also explains why we win 100% of the time in experiment 3.
+
+Problems + Solutions:
+1. Figuring out how to play optimally was hard until I actually wrote my thoughts down.
+2. Implementing what I found out was the biggest problem though
+2.1 So the losing list is [1, n+2=a, a+ n+1=d, a+2d, a+3d...] where a is the second term, but in the sequence it is the first
+I initialised the list as [1, a] for all terms
+This was problematic as len of the game list can ( and has to) dip below a
+When this happened, the computer spat out a negative number
+This led to infinite loops, (I was wondering why the code was taking so long to run)
+By adding in prints along the way, I was able to find my issue
+I added a move += 1 clause to fix this, I also have a move -= 1 just be extra sure no surprises occur when running big simulations
+
+2.2 I only realised after this that the [1, a] initialisation of the list was causing all of this
+I changed it to [1]
+The other problem I had before was my for loop start on a and having a in list
+This meant a was appended to list twice
+
+Conclusion:
+Having print statements along the way really helps to point out errors
+It helped me to identify what was holding my code up and how to fix it
+
+#Fix# V8.
+
+I have already compiled my data for wins, now I need to compile the pl moves cleanly
+If I package them up into their games, I can train the AI into making a prediction based on given parametres
+The goal for this V is to make an AI that when given the game transcript from one player over a period of iterations, that it can guess with accuracy above 50% if that player won or lost that game
+We will feed the Ai data from our 2 random computer games
+
+Plan for going forward
+I want to put in pl1 nums as my test data and my pl1wins as my validation
+I need to create a data set using pandas
+Split the data using scikit-learn
+Train the ai with tensorflow keras
+
+Problems+Solutions:
+1. I didn't realise I needed an advanced AI to do this part.
+I will come back to this later in the future
+
+V9.
+
+It was easier to start V9 than continue with V8
+The plan is to build an Ai and train it towards the optimal strategy in V7
+I started by taking and changing code from V7
+
+I quickly found out that V7 didn't work optimally
+In V9.2, I made a proper functioning optimal algorithm
+
+V9.3 #Todo# Important step
+I decided to have a list returned from optimal move into ai
+The first elem would be the optimal move
+The second would be if the move was random, optimal, or undefined
+I started giving simple weightings to conditions
+--> If the ai move was equal to the optimal move 1.0
+--> If our move was not equal to the optimal move -1.0
+--> If the optimal move was random 0.0
+--> I gave everything that didn't fall into these categories a 0.1
+
+I ran 10,000,000 simulations and the ai won 6,914,312 times
+I did it again and the ai won 6,916,402
+
+V9.4
+I changed my weightings
+optimal 10.0, un-optimal -10.0, if optimal was random 0.0, else -5.0
+ai won 6,911,487
+
+I then doubled the experimental rate from .5 to 1
+ai wins jumped to 9,465,038 out of 10,000,000
+
+I put the experimental rate down to .1
+ai wins was 8,912,410
+
+There is no learning in any of the Vs so far
+To be brutally honest I don't know what is really going on
+
+When I put my exploration rate up to 1 we win around 95% of the time
+The lower the exploration rate is in this system, the more random numbers we pick
+
+#TODO# Experiment:
+I'm comparing V9.2(Optimal v Random) and V9.4(AI v Random)
+AI weights: 
+
+experimental_rate = 1
+if action == optimised_action and comment == 'o': quality = 1.0 
+elif action != optimised_action and comment == 'o': quality = -1.0 
+elif comment == 'r': quality = 0.0 
+else: quality = 0.0
+
+Game:
+available moves [1,2,3]
+initial win condition 15
+iterations 10,000,000
+
+V9.2 Optimal wins = 9,876,905
+V9.4 AI wins = 9,466,056
+Expected mathematically = 9,876,543 (80/81 * iter)
+
+V10
+It is so sad that I'm at V10 and the optimised move is still a negative sometimes
+In V10, It is completely fixed 
+
+V10.1
+Problem: ValueError: setting an array element with a sequence.
+I had tried to make each array the same size bby adding [0.0, 0.0] to the end
+This didn't seem to work
+The data wasn't compiling right
+
+V10.2
+I made a fix for my data, Instead of having two fields one with the result and the other as a list
+I made each value a separate column
+I had to convert all of the values to floats
+
+V8.1
+I changed v8.1 so it could compile the data for the Ai
+It wasn't doing anything else anyway 
+I made 15 lists to account for the max 15 moves in a game
+This is what was used to first use the AIs and not break down and fail
+
+V10.3
+Using scikit-learn, I imported a train_test_split library, a random forest classifier, an accuracy score, and pandas
+I referenced the file path in my dataset
+I split my data into our results on the y axis and our data on the X axis
+
+V11
+Here I just made a few extra projects that I wanted like changing the goes and creating a GUI
+I cleaned up everything from the previous projects and made a few variations
+
+#Todo#
+The wrap up
+
+The final product
+In my final folder I have two different ai analysis files
+I also have a csv file to store the data
+Then there is the different versions of the games that all vary slightly
+
+What I learned:
+The main thing I learned is that nothing needs to be perfect the first time
+V1 to V4 were primative versions with lots of problems
+As I kept refining the game, the mistakes were slowly weeded out
+
+I learned also how powerful it is to have  definite plan
+Though the plan changed, it helped me mold my project
+This all allowed me to easily to follow my progress and thus I was able to put everything together for the final product
+
+What will I do going forward:
+1. Outline my problem, scope, technical implementation, testing and Reflection
+2. Log everything as it is done (include problems)
+3. Make sure to comment properly and name each file/folder correctly as well
+
+How I would improve this project if I were to build onto it.
+1. Make a GUI
+2. Hyper-tune AI
